@@ -4,6 +4,7 @@ const yoil = ['일요일','월요일','화요일','수요일','목요일','금�
 const lastDay = [31,28,31,30,31,30,31,31,30,31,30,31]
 
 const calendar = {
+    html: '',
     makeHead(){
         let st = "";
         st+='<table border="1"><thead><tr>';
@@ -12,28 +13,37 @@ const calendar = {
         }
         
         st+='</tr></thead>';
-        this.html = st;
+        return st;;
     },
-    html: '',
+    
     makeBody(mon){
         let str="";
+        
         str+='<tbody><tr>';
-        for(let i =1 ; i<lastDay[mon-1]+1; i++){
+        for(let i =1 ; i<=lastDay[mon-1]; i++){
             str+='<td>'+i+'</td>'
             if(i%7==0){
-                str+='<br>';
+                str+='<tr></tr>';
             }
         };
-        str+='</tr></tbody></table>';
-        this.html = str;
+        str+='</tr></tbody>';
+        return str;
     },
     
     makeCalendar(dom){
-        dom.innerHTML = this.html;
+        for(let i=1;i<=12;i++){
+            
+            let monthH = calendar.makeHead();
+            let monthB = calendar.makeBody(i);
+            this.html += monthH+monthB;
+            
+        }
+        dom.innerHTML = '<table>'+this.html+'</table>';
     }
 }
 
 
-calendar.makeHead(asdas);
-calendar.makeBody(10);
+
+
+
 calendar.makeCalendar(document.getElementById('show'));
