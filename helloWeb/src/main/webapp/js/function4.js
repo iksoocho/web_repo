@@ -26,15 +26,18 @@ function makeTr(member = {name,age,height,showInfo}) {
 
 
 document.getElementById('saveBtn').onclick = function(e){
-    if(document.getElementById('name').value==""){
-        alert('이름을 입력해주세요');
-    }else{
+    
 
         console.log(e.target);
         let name = document.getElementById('name').value;
         let age = document.getElementById('age').value;
         let height = document.getElementById('height').value;
     
+    
+    	if(!name || !age || !height){
+			alert("값을 입력하세요");
+			return;
+		}
         const mem = new Member(name,age,height);
         let str = makeTr(mem);
         
@@ -47,7 +50,7 @@ document.getElementById('saveBtn').onclick = function(e){
         document.getElementById('age').value="";
         document.getElementById('height').value="";
         document.getElementById('name').focus();
-    }
+    
 
     
 }
