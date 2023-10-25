@@ -34,6 +34,6 @@ const calendar = {
 }
 
 
-calendar.makeHead();
+calendar.makeHead(asdas);
 calendar.makeBody(10);
 calendar.makeCalendar(document.getElementById('show'));
