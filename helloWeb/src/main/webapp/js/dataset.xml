@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <record>
+        <id>1</id>
+        <first_name>Dom</first_name>
+        <email>dblincko0@cocolog-nifty.com</email>
+    </record>
+    <record>
+        <id>2</id>
+        <first_name>Dominick</first_name>
+        <email>dbonallick1@addthis.com</email>
+    </record>
+    <record>
+        <id>3</id>
+        <first_name>Barnabas</first_name>
+        <email>bsate2@home.pl</email>
+    </record>
+    <record>
+        <id>4</id>
+        <first_name>Constantine</first_name>
+        <email>cscading3@quantcast.com</email>
+    </record>
+    <record>
+        <id>5</id>
+        <first_name>Carmon</first_name>
+        <email>cennor4@pen.io</email>
+    </record>
+</dataset>
