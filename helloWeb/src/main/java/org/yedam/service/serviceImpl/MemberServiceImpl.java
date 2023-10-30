@@ -20,9 +20,9 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> memberList() {
 		List<MemberVO> member = new ArrayList<>();
 		String sql = "SELECT*FROM MEMBER";
+		conn = dao.getConnection();
 
 		try {
-			conn = dao.getConnection();
 			psmt = conn.prepareStatement(sql);
 			ResultSet rs = psmt.executeQuery();
 			while(rs.next()) {
@@ -55,5 +55,55 @@ public class MemberServiceImpl implements MemberService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public boolean addMember(MemberVO vo) {
+		String sql = "INSERT INTO MEMBER VALUES(?,?,?,?)";
+		conn = dao.getConnection();
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getMid());
+			psmt.setString(2, vo.getPass());
+			psmt.setString(3, vo.getName());
+			psmt.setString(4, vo.getPhone());
+			
+			int r = psmt.executeUpdate();  // 반환값은 데이터 처리 건수 
+			if(r==1) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean modMember(MemberVO vo) {
+		String sql = "UPDATE MEMBER SET PASS=?,NAME=?,PHONE=? WHERE MID=?";
+		conn = dao.getConnection();
+		try {
+			psmt=conn.prepareStatement(sql);
+			
+			psmt.setString(1, vo.getPass());
+			psmt.setString(2, vo.getName());
+			psmt.setString(3, vo.getPhone());
+			psmt.setString(4, vo.getMid());
+			
+			int r = psmt.executeUpdate();
+			if(r ==1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return false;
 	}
 }

@@ -10,21 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.yedam.service.MemberService;
+import org.yedam.service.BookService;
+import org.yedam.service.BookVO;
 import org.yedam.service.MemberVO;
-import org.yedam.service.serviceImpl.MemberServiceImpl;
+import org.yedam.service.serviceImpl.BookServiceImpl;
 
 /**
- * Servlet implementation class MemberListServ
+ * Servlet implementation class BookListServ
  */
-@WebServlet("/MemberListServlet")
-public class MemberListServ extends HttpServlet {
+@WebServlet("/BookListServlet")
+public class BookListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberListServ() {
+    public BookListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,24 +34,25 @@ public class MemberListServ extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		MemberService svc = new MemberServiceImpl();
-		List<MemberVO> list = svc.memberList();
-		System.out.println(list);
-		
-		response.setContentType("text/xml;charset=utf-8");
-		
+		BookService svc = new BookServiceImpl();
+		List<BookVO> list = svc.bookList();
+		response.setContentType("text/json;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		String str="<dataset>";
-		for(MemberVO vo : list) {
-			str += "<record>";
-			str+="<mid>"+vo.getMid()+"</mid>";
-			str+="<pass>"+vo.getPass()+"</pass>";
-			str+="<name>"+vo.getName()+"</name>";
-			str+="<phone>"+vo.getPhone()+"</phone>";
-			str+="</record>";
+		int cnt =0;
+		String str="[";
+		for(BookVO vo : list) {
+			str += "{";
+			str+="\"bookcode\":\""+vo.getBookCode()+"\",";
+			str+="\"booktitle\":\""+vo.getBookTitle()+"\",";
+			str+="\"bookauthor\":\""+vo.getBookAuthor()+"\",";
+			str+="\"bookpress\":\""+vo.getBookPress()+"\",";
+			str+="\"bookprice\":\""+vo.getBookPrice()+"\"";
+			str+="}";
+			if(++cnt!=list.size()) {   //마지막이 아니면
+				str+=",";
+			}
 		}
-		str+="</dataset>";
+		str+="]";
 		out.print(str);
 	}
 

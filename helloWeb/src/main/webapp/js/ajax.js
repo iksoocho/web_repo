@@ -36,17 +36,36 @@ xhtp.send();
 xhtp.onload = loadJson;
 
 
-function loadJson(){
+// function loadJson() {
+//     console.log(xhtp.responseText)
+//     let result = JSON.parse(xhtp.responseText);
+//     console.log(result)
+
+//     let titles = ['회원번호', '비밀번호', '이름', '연락처'];
+//     let tt = table.makeTable(titles, result);
+//     document.getElementById('show').innerHTML = tt;
+
+// }
+
+//교수님 버전
+function loadJson() {
     console.log(xhtp.responseText)
     let result = JSON.parse(xhtp.responseText);
     console.log(result)
 
 
     let titles = ['회원번호', '비밀번호', '이름', '연락처'];
-    let tt = table.makeTable(titles, result);
+    let dataAry=[];
+    result.forEach(member => {
+        dataAry.push({mid: member.mid, pass: member.pass, name: member.name, phone: member.phone})
+    });
+    let tt = table.makeTable(titles, dataAry);
     document.getElementById('show').innerHTML = tt;
-    
+
 }
+
+
+
 
 
 function loadXML() {
@@ -79,3 +98,4 @@ function loadXML() {
     let tr = `<tr><td>${newMember.mid}</td><td>${newMember.pass}</td><td>${newMember.name}</td><td>${newMember.phone}</td></tr>`
     document.getElementById('list').innerHTML += tr;
 }
+
