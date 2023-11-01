@@ -3,6 +3,7 @@
  */
 
 export default {
+    hiddenFields: ['lat','lng'],
     makeHead: function (titles = []) {
         //thead>tr>th*n
         let thead = document.createElement('thead')
@@ -27,8 +28,16 @@ export default {
     },
 
     makeTr: function (center = {}) {
+        
         let tr = document.createElement('tr');
+        tr.setAttribute('data-lat',center.lat)    //data-XXX > XXX의 값만 가져온다(tr.dataset.lat)
+        tr.setAttribute('data-lng',center.lng)
+
         for (let prop in center) {
+            if(this.hiddenFields.indexOf(prop) > -1){
+                
+                continue;
+            }
             let td = document.createElement('td')
             td.innerHTML = center[prop];
             tr.append(td);
