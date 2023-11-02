@@ -57,7 +57,7 @@ public class StudentListServlet extends HttpServlet{
 		List<StudentVO> list = svc.listStudent();
 		
 		//java의 객체 -> json 문자열로 변환
-		Gson gson = new GsonBuilder().create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		String json = gson.toJson(list);
 		
 		

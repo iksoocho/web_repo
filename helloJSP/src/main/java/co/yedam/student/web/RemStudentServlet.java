@@ -16,7 +16,9 @@ public class RemStudentServlet extends HttpServlet{
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		String sid = req.getParameter("sid");  //값 넘김
+		
 		StudentService svc = new StudentServiceImpl();
 		if(svc.removeStudent(sid)) {
 			//{"retCode":"OK"}
