@@ -1,25 +1,59 @@
 /**
  *  js/student.js
  */
+import svc from './service.js'
 
 //페이지가 로딩 되면서 바로 실행
-fetch('../studentList.do')
-	.then(resolve => resolve.json())
-	.then(result => {
+//비동기 방식 > 순차적으로 배치(가독성 높이기) : async, await 
+//async 함수(
+//   await 처리 > (promise 객체)
+//   await 처리 > (promise 객체)
+//   await 처리 > (promise 객체)
+//)
+
+// fetch('../studentList.do')
+// 	.then(resolve => resolve.json())
+// 	.then(result => {
+// 		console.log(result);
+// 		let tbody = document.querySelector('#list');
+// 		result.forEach(student => {
+// 			tbody.append(makeTr(student));
+// 		});
+// 	})
+// 	.catch(err => console.log('error : ', err));
+
+// async function studentList() {
+// 	let req = await fetch('../studentList.do');   //resolve와 같음
+// 	let json = await req.json();                  //result 와 같음  // json형태 {"retCode":"OK"} -> {retCode:"OK"}
+// 	let tbody = document.querySelector('#list');
+// 	try {
+// 		json.forEach(student => {
+// 			tbody.append(makeTr(student));
+// 		});
+// 	} catch (err) {
+// 		console.log('error : ', err)
+// 	}
+// }
+
+svc.studentList(
+	//성공하면 실행할 함수
+	result => {
 		console.log(result);
 		let tbody = document.querySelector('#list');
 		result.forEach(student => {
 			tbody.append(makeTr(student));
 		});
-	})
-	.catch(err => console.log('error : ', err));
+	},
+	//실패하면 실행할 함수
+	err => console.log('error : ', err)
+); //=>화살표 함수 
 
 
 //등록버튼 이벤트
 document.querySelector('#addBtn').addEventListener('click', addCallback)
 
 //수정 버튼 이벤트
-document.querySelector('#modBtn').addEventListener('click',modCallback)
+document.querySelector('#modBtn').addEventListener('click', modCallback)
 
 
 
@@ -36,21 +70,21 @@ function addCallback(e) {
 	let param = `id=${sid}&name=${name}&pwd=${pwd}&dept=${dept}&birth=${birth}`;
 	console.log(param)
 
-
-
 	//ajax 호출
 	//fetch('../addStudent.do?'+ param)  //> get방식 요청
 	//get : 주소줄에서 url에 ?뒤에 값 넘김, 값에 제한이 있음
 	//post: 파라미터의 표현이X , 값의 제한도 X, content-type 을 지정해 줘야됨
-	fetch('../addStudent.do', {
+	svc.addStudent(
+		//optObj
+		{
 			method: 'post',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
 			body: param
-		})
-		.then(resolve => resolve.json())
-		.then(result => {
+		},
+		//성공시
+		result => {
 			if (result.retCode == 'OK') {
 				alert('성공')
 				let tr = makeTr({
@@ -62,44 +96,97 @@ function addCallback(e) {
 			} else {
 				alert('실패')
 			}
-		})
-		.catch(err => console.log('error : ', err))
-}//end addCallback
+		},
+		//실패시
+		err => console.log('error : ', err)
+	);
+
+	// fetch('../addStudent.do', {
+	// 	method: 'post',
+	// 	headers: {
+	// 		'Content-Type': 'application/x-www-form-urlencoded'
+	// 	},
+	// 	body: param
+	// })
+	// 	.then(resolve => resolve.json())
+	// 	.then(result => {
+	// 		if (result.retCode == 'OK') {
+	// 			alert('성공')
+	// 			let tr = makeTr({
+	// 				studentId: sid,
+	// 				studentName: name,
+	// 				studentBirthday: birth
+	// 			})
+	// 			document.querySelector('#list').append(tr)
+	// 		} else {
+	// 			alert('실패')
+	// 		}
+	// 	})
+	// 	.catch(err => console.log('error : ', err))
+} //end addCallback
 
 
-function modCallback(e){
+function modCallback(e) {
 	let id = document.querySelector('.modal-body input[name=sid]').value;
 	let dept = document.querySelector('.modal-body input[name=dept]').value;
 	let name = document.querySelector('.modal-body input[name=name]').value;
 	let pwd = document.querySelector('.modal-body input[name=pass]').value;
 	let birth = document.querySelector('.modal-body input[name=birth]').value;
-	
+
 	let param = `id=${id}&name=${name}&pwd=${pwd}&dept=${dept}&birth=${birth}`;
 
-	fetch('../editStudent.do', {
-		method: 'post',
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
+	// fetch('../editStudent.do', {
+	// 	method: 'post',
+	// 	headers: {
+	// 		'Content-Type': 'application/x-www-form-urlencoded'
+	// 	},
+	// 	body: param
+	// })
+	// 	.then(resolve => resolve.json())
+	// 	.then(result => {
+	// 		console.log(result)
+	// 		if (result.retCode == 'OK') {
+	// 			alert('성공')
+	// 			result.vo.studentId;
+	// 			let targetTr = document.querySelector('tr[data-sid=' + result.vo.studentId + ']')
+	// 			let newTr = makeTr(result.vo);
+	// 			let parentElem = document.querySelector('#list');
+	// 			parentElem.replaceChild(newTr, targetTr)
+	// 			document.getElementById("myModal").style.display = "none";
+	// 		} else {
+	// 			alert('실패')
+	// 		}
+	// 	})
+	// 	.catch(err => console.log('error : ', err))
+
+	svc.editStudent(
+		//optObj
+		{
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: param
 		},
-		body: param
-	})
-	.then(resolve => resolve.json())
-	.then(result => {
-		console.log(result)
-		if (result.retCode == 'OK') {
-			alert('성공')
-			result.vo.studentId;
-			let targetTr = document.querySelector('tr[data-sid='+result.vo.studentId+']')
-			let newTr = makeTr(result.vo);
-			let parentElem = document.querySelector('#list');
-			parentElem.replaceChild(newTr, targetTr)
-			document.getElementById("myModal").style.display = "none";
-		} else {
-			alert('실패')
-		}
-	})
-	.catch(err => console.log('error : ', err))
-}//end modCallback
+		//성공시
+		result => {
+			console.log(result)
+			if (result.retCode == 'OK') {
+				alert('성공')
+				let targetTr = document.querySelector('tr[data-sid=' + result.vo.studentId + ']')
+				let newTr = makeTr(result.vo);
+				let parentElem = document.querySelector('#list');
+				parentElem.replaceChild(newTr, targetTr)
+				document.getElementById("myModal").style.display = "none";
+			} else {
+				alert('실패')
+			}
+		},
+		//실패시
+		err => console.log('error : ', err)
+	)
+
+} //end modCallback
 
 
 
@@ -123,24 +210,43 @@ function makeTr(obj) {
 	let btn = document.createElement('button')
 	btn.setAttribute('data-sid', obj.studentId);
 	btn.addEventListener('click', function (e) {
-		//ajax 호출 -> 삭제 servlet 호출(db)과 화면 출력을 동시에 처리 
-		fetch('../delStudent.do?sid=' + obj.studentId)
-			.then(resolve => resolve.json())
-			.then(result => {
+		svc.removeStudent(
+			//id
+			obj.studentId,
+			//성공시
+			result => {
 				if (result.retCode == 'OK') {
 					alert('삭제 성공');
 					tr.remove();
 				} else {
 					alert('삭제 실패');
 				}
-			})
-			.catch(err => console.log('error : ', err))
-	});
-	btn.innerHTML = "삭제"
-	td.append(btn)
+			},
+			//실패시
+			err => console.log('error : ', err)
+		);
+	})
+
+	//ajax 호출 -> 삭제 servlet 호출(db)과 화면 출력을 동시에 처리 
+	// 	fetch('../delStudent.do?sid=' + obj.studentId)
+	// 		.then(resolve => resolve.json())
+	// 		.then(result => {
+	// 			if (result.retCode == 'OK') {
+	// 				alert('삭제 성공');
+	// 				tr.remove();
+	// 			} else {
+	// 				alert('삭제 실패');
+	// 			}
+	// 		})
+	// 		.catch(err => console.log('error : ', err))
+	// });
+	btn.innerHTML = "삭제";
+	td.append(btn);
 	tr.append(td);
 	return tr;
 }
+
+
 
 function showModal(e) {
 	let id = this.children[0].innerHTML;
@@ -149,11 +255,11 @@ function showModal(e) {
 	console.log(id)
 	// Get the modal
 	var modal = document.getElementById("myModal");
-
-
-	fetch("../getStudent.do?id=" + id)
-		.then(resolve => resolve.json())
-		.then(result => {
+	svc.getStudent(
+		//id
+		id,
+		//성공시
+		result => {
 			modal.style.display = "block";
 
 			modal.querySelector('h2').innerHTML = result.studentName;
@@ -162,8 +268,24 @@ function showModal(e) {
 			modal.querySelector('input[name=birth]').value = result.studentBirthday
 			modal.querySelector('input[name=sid]').value = result.studentId
 
-		})
-		.catch(err => console.log('error : ', err))
+		},
+		//실패시
+		err => console.log('error : ', err)
+	)
+
+	// fetch("../getStudent.do?id=" + id)
+	// 	.then(resolve => resolve.json())
+	// 	.then(result => {
+	// 		modal.style.display = "block";
+
+	// 		modal.querySelector('h2').innerHTML = result.studentName;
+	// 		modal.querySelector('input[name=pass]').value = result.studentPwd
+	// 		modal.querySelector('input[name=name]').value = result.studentName
+	// 		modal.querySelector('input[name=birth]').value = result.studentBirthday
+	// 		modal.querySelector('input[name=sid]').value = result.studentId
+
+	// 	})
+	// 	.catch(err => console.log('error : ', err))
 
 
 	var span = document.getElementsByClassName("close")[0];
