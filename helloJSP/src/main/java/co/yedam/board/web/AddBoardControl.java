@@ -1,6 +1,7 @@
 package co.yedam.board.web;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,13 @@ public class AddBoardControl implements Command {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		// 제목, 내용, 작성자
-		
+		try {
+			req.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		resp.setCharacterEncoding("utf-8");
 		
 		
 		String title = req.getParameter("title");

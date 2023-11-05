@@ -20,7 +20,9 @@ public class FrontController extends HttpServlet {   //??.do 로 끝나면 항�
 
 	@Override
 	public void init() throws ServletException {
+		//목록 화면
 		map.put("/boardList.do", new BoardListControl());
+		//특정 게시물 불러오기
 		map.put("/getBoard.do", new GetBoardControl());
 		//등록화면
 		map.put("/boardForm.do", new BoardFormControl());

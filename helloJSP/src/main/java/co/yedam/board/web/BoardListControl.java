@@ -1,6 +1,7 @@
 package co.yedam.board.web;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -18,6 +19,10 @@ public class BoardListControl implements Command {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		// 서블릿 : 데이터 처리   jsp : 보여주는 역할
+		
+		resp.setCharacterEncoding("utf-8");
+		resp.setContentType("text/json;charset=utf-8");
+		
 		BoardService svc = new BoardServiceImpl();
 		List<BoardVO> list = svc.boardList();
 		
