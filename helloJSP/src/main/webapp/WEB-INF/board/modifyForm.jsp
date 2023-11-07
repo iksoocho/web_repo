@@ -16,12 +16,12 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" name="writer"
+				<td><input readonly type="text" name="writer"
 					value="<%=vo.getWriter()%>"></td>
 			</tr>
 			<tr>
 
-				<td colspan="2"><textarea cols="40" rows="5" name="content"><%=vo.getContent()%></textarea></td>
+				<td colspan="2"><textarea class="form-control" name="content"><%=vo.getContent()%></textarea></td>
 			</tr>
 			<tr>
 				<th>파일명</th>

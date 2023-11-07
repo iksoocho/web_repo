@@ -1,6 +1,11 @@
 <%@page import="co.yedam.board.service.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<style>
+	#list span{
+	margin: 4px
+	}
+</style>
 <%@include file="../layout/menu.jsp" %>
 <%@include file="../layout/header.jsp" %>
 	<%
@@ -12,7 +17,7 @@
 	<table class="table">
 		<tr>
 			<th>글번호</th>
-			<td><%=vo.getBoardNo()%></td>
+			<td class="boardNo"><%=vo.getBoardNo()%></td>
 			<th>등록일자</th>
 			<td><%=vo.getWriteDate()%></td>
 		</tr>
@@ -52,6 +57,22 @@
 		</tr>
 	</table>
 	</form>
+	<h3>댓글등록</h3>
+	<table class="table">
+		<tr>
+			<th>댓글내용</th>
+			<td><input type="text" id="content"></td>
+			<td><button id="addReply">댓글등록</button></td>
+		</tr>
+
+	</table>
+	
+	<h3>댓글목록</h3>
+	<ul id="list">
+		<li style="display: none" id="template"><span>00</span><b>첫번째 댓글입니다.</b><span>user01</span><span>2023-11-7</span>
+	</ul>
+	
+	
 	<p>
 		<a href="boardList.do">목록으로</a>
 		<script>
@@ -59,6 +80,53 @@
 				document.forms.myForm.action='removeForm.do';
 				document.forms.myForm.submit();
 			});
+			
+			let bno = "<%=vo.getBoardNo()%>"; 
+			let writer = "<%=logId%>";
+			bno = document.querySelector('.boardNo').innerHTML;
+			fetch('replyList.do?bno='+ bno)
+			.then(resolve=>resolve.json())
+			.then(result=>{
+				console.log(result);
+				result.forEach(reply=>{
+					let li  = makeRow(reply)
+					//
+					document.querySelector('#list').append(li)
+				})
+			})
+			.catch(err=>console.log(err))
+			
+			function makeRow(reply){
+				let temp = document.querySelector('#template').cloneNode(true);
+					temp.style.display='block'
+					temp.querySelector('span:nth-of-type(1)').innerHTML = reply.replyNo;
+					temp.querySelector('b').innerHTML = reply.reply;
+					temp.querySelector('span:nth-of-type(2)').innerHTML = reply.replyer;
+					temp.querySelector('span:nth-of-type(3)').innerHTML = reply.replyDate;
+					return temp;
+			}
+			
+			
+			document.querySelector('#addReply').addEventListener('click', function(e){
+				let reply = document.querySelector('#content').value;
+				if(!bno || !writer || !reply){
+					alert("값을 확인하세요")
+					return;
+				}
+				fetch('addReply.do',{
+					method: 'post',
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+					body: 'bno='+bno+'&reply='+reply+'&replyer='+writer
+				})
+				.then(resolve =>resolve.json())
+				.then(result =>{
+					if(result.retCode=='OK'){
+						document.querySelector('#list').append(makeRow(result.vo))
+					}else{
+						alert('error')
+					}
+				})
+			})
 		</script>
 	</p>
 <%@include file="../layout/footer.jsp" %>
