@@ -18,6 +18,7 @@ import co.yedam.board.web.ModifyFormControl;
 import co.yedam.board.web.RemoveBoardControl;
 import co.yedam.board.web.RemoveFormControl;
 import co.yedam.reply.web.AddReplyControl;
+import co.yedam.reply.web.RemoveReplyCintrol;
 import co.yedam.reply.web.ReplyListControl;
 
 public class FrontController extends HttpServlet {   //??.do 로 끝나면 항상 FrontController가 실행되는데 어떤 .do 냐 따라서 다른 매소드들을 실행해주기 위해 나눠놈
@@ -53,6 +54,7 @@ public class FrontController extends HttpServlet {   //??.do 로 끝나면 항�
 		//댓글 목록
 		map.put("/replyList.do", new ReplyListControl());
 		map.put("/addReply.do", new AddReplyControl());
+		map.put("/removeReply.do", new RemoveReplyCintrol());
 
 	}
 

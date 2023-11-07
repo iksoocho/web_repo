@@ -9,5 +9,5 @@ public interface ReplyMapper {
 	public ReplyVO selectReply(int replyNo);
 	public int insertReply(ReplyVO vo);
 	public int updateReply(ReplyVO vo);
-	public int deleteReply(ReplyVO vo);
+	public int deleteReply(int replyNo);
 }

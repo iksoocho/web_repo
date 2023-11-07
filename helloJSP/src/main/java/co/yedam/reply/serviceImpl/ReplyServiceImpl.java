@@ -39,9 +39,9 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 
 	@Override
-	public boolean delReply(ReplyVO vo) {
+	public boolean delReply(int replyNo) {
 		// TODO Auto-generated method stub
-		return mapper.deleteReply(vo)==1;
+		return mapper.deleteReply(replyNo)==1;
 	}
 
 	
