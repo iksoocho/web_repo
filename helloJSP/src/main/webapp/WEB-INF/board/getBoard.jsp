@@ -209,8 +209,12 @@
 							if (result.retCode == 'OK') {
 								alert('삭제 성공!')
 								e.target.parentElement.remove();
-								showList(-1)
-								
+								if(document.querySelectorAll('#list > li').length == 1) {
+									showList(-1);	
+								}
+								else {
+									showList(page);
+								}
 								
 						} else {
 								alert('삭제 실패');
