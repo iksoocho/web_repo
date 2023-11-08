@@ -19,19 +19,19 @@ public class RemoveReplyCintrol implements Command {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
-		ReplyVO vo = new ReplyVO();
+		
 		ReplyService svc = new ReplyServiceImpl();
 
-		String rno = req.getParameter("replyNo");
+		String rno = req.getParameter("rno");
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
 
-		Map<String, Object> map = new HashMap<>();
+		Map<String, String> map = new HashMap<>();
 
 		if (svc.delReply(Integer.parseInt(rno))) {
 			try {
 				map.put("retCode", "OK");
-				map.put("vo", vo);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -43,6 +43,8 @@ public class RemoveReplyCintrol implements Command {
 			}
 		}
 
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
 		resp.setContentType("text/json; charset=UTF-8");
 		try {
 			resp.getWriter().print(gson.toJson(map));

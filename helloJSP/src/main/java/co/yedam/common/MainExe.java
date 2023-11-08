@@ -1,10 +1,14 @@
 package co.yedam.common;
 
 
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.processing.SupportedSourceVersion;
+
 import org.apache.ibatis.session.SqlSession;
 
 import co.yedam.reply.mapper.ReplyMapper;
-import co.yedam.reply.service.ReplyVO;
 
 public class MainExe {
 	public static void main(String[] args) {
@@ -15,15 +19,13 @@ public class MainExe {
 		SqlSession session = DataSourceMybatis.getInstance().openSession(true);
 		ReplyMapper mapper = session.getMapper(ReplyMapper.class);
 		
-		ReplyVO vo = new ReplyVO();
-		vo.setBoardNo(1);
-		vo.setReply("ggg");
-		vo.setReplyer("user09");
+		
+		List<Map<String, Object>> map = mapper.getReplyCountByWriter();
+		System.out.println(map);
 		
 		
 		
 		
-		System.out.println(mapper.insertReply(vo));
 		
 		
 	}
