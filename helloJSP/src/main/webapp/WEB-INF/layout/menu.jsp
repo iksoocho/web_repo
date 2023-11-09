@@ -29,7 +29,7 @@
 				</c:when>
 				
 				<c:otherwise>
-					<div class="sidebar-heading border-bottom bg-light">(${loginId })님 환영합니다 ${responsibility }</div>
+					<div class="sidebar-heading border-bottom bg-light">(${name })님 환영합니다 ${responsibility }</div>
 				</c:otherwise>
 			</c:choose>
 			

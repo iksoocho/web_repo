@@ -13,7 +13,7 @@
   function drawChart() {
 	  fetch('drawChart.do')
 	  .then(resolve=>resolve.json())
-	  .then(result=>{
+	  .then(result=>{    //{}
 		  console.log()
 		  let dataAry =[['Writer', 'Cnt']]
 		  result.forEach(item=>{

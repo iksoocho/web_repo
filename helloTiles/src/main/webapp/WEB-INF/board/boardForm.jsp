@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<jsp:include page="../layout/menu.jsp"></jsp:include>
-<jsp:include page="../layout/header.jsp"></jsp:include>	
+
 
 	<h3>게시물 등록화면</h3>
 	<form action="addBoard.do" method="post" enctype="multipart/form-data">
@@ -32,4 +31,3 @@
 			</tr>
 		</table>
 	</form>
-<jsp:include page="../layout/footer.jsp"></jsp:include>
