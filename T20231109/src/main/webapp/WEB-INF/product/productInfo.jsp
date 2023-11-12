@@ -15,6 +15,7 @@
                             <span>$ ${pcode.offPrice }</span>
                         </div>
                         <p class="lead">${pcode.prodDesc }</p>
+                        
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                             <button class="btn btn-outline-dark flex-shrink-0" type="button">
@@ -27,6 +28,21 @@
             </div>
         </section>
         
+     <div id="map" style="width:100%;height:500px;"></div>
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6237790f9e768188fb2cdd4f4fecf7fa"></script>
+	<script>
+	
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			mapOption = {
+				center: new kakao.maps.LatLng(${pcode.lat},${pcode.lng}), // 지도의 중심좌표
+				level: 3 // 지도의 확대 레벨
+			};
+
+		var map = new kakao.maps.Map(mapContainer, mapOption);
+	</script>
+			
        <section class="py-5 bg-light">
 	<div class="container px-4 px-lg-5 mt-5">
 		<h2 class="fw-bolder mb-4">Related products</h2>
@@ -39,8 +55,8 @@
 						<div class="badge bg-dark text-white position-absolute"
 							style="top: 0.5rem; right: 0.5rem">Sale</div>
 						<!-- Product image-->
-						<img class="card-img-top"
-							src="images/${vo.prodImage }.jpg"alt="..." />
+						<a href="productInfo.do?pcode=${vo.prodCode }"><img class="card-img-top"
+							src="images/${vo.prodImage }.jpg"alt="..." /></a>
 						<!-- Product details-->
 						<div class="card-body p-4">
 							<div class="text-center">
@@ -56,6 +72,8 @@
 								<!-- Product price-->
 								<span class="text-muted text-decoration-line-through">${vo.price }</span>
 								${vo.offPrice }
+								
+								
 							</div>
 						</div>
 						<!-- Product actions-->

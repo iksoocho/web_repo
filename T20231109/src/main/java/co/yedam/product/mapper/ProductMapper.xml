@@ -9,6 +9,10 @@
 		select * from tbl_product where prod_code = '${prodCode}'
 	</select>
 	
+	<select id="dayList" resultType="co.yedam.product.service.ProductVO" parameterType="String">
+		select * from  tbl_product
+		where #{bdate}  between startdate and enddate
+	</select>
 	
 
 </mapper> 

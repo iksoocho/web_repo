@@ -27,6 +27,7 @@ public class FrontController extends HttpServlet {   //??.do 로 끝나면 항�
 
 	@Override
 	public void init() throws ServletException {
+		System.out.println("FrontController");
 		//메인페이지
 		map.put("/main.do", new MainControl());
 		//로그인
@@ -59,6 +60,9 @@ public class FrontController extends HttpServlet {   //??.do 로 끝나면 항�
 		//차트
 		map.put("/chartForm.do", new ChartFormControl());
 		map.put("/drawChart.do", new DrawChartControl());
+		
+		//달력
+		//map.put("/dayLsit.do", new DayListControl());
 
 	}
 

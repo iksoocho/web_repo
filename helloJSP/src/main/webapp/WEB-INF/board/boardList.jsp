@@ -6,8 +6,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<jsp:include page="../layout/menu.jsp"></jsp:include>
-<jsp:include page="../layout/header.jsp"></jsp:include>	
+
+
 
 
 	<h3>게시판 목록</h3>
@@ -22,6 +22,7 @@
 			</tr>
 		</thead>
 		<tbody>
+		
 		<c:forEach items="${list }" var="vo">
 			<tr>
 				<td>${vo.boardNo }</td>
@@ -38,7 +39,6 @@
 
 
 	</table>
-	<p>
+	  <p>
 		<a href="boardForm.do">글쓰기</a>
 	</p>
-<jsp:include page="../layout/footer.jsp"></jsp:include>

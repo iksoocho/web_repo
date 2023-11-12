@@ -13,9 +13,9 @@ public class mainexe {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ProductService svc = new ProductServiceImpl();
-		List<ProductVO> list = svc.productList();
+		ProductVO vo = svc.productSelect("P001");
 		
-		System.out.println(list);
+		System.out.println(vo);
 		
 		
 	}

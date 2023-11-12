@@ -17,26 +17,27 @@
 						<!-- Sale badge-->
 						<div class="badge bg-dark text-white position-absolute"
 							style="top: 0.5rem; right: 0.5rem">Sale</div>
-						<a href="productInfo.do?pcode=${vo.prodCode }"><img class="card-img-top" src="images/${vo.prodImage }.jpg"  alt="..."/></a>
+						<a href="productInfo.do?pcode=${vo.prodCode }"><img
+							class="card-img-top" src="images/${vo.prodImage }.jpg" alt="..." /></a>
 						<!-- Product details-->
 						<div class="card-body p-4">
 							<div class="text-center">
 								<!-- Product name-->
 								<h5 class="fw-bolder">${vo.prodName }</h5>
-								<div class="d-flex justify-content-center small text-warning mb-2">
-								<c:forEach var="i" begin="1" end="${vo.likeIt }">
-									<div class="bi-star-fill"></div>
-								</c:forEach>
+								<div
+									class="d-flex justify-content-center small text-warning mb-2">
+									<%-- <c:forEach var="i" begin="1" end="${vo.likeIt }">
+										<div class="bi-star-fill"></div>
+									</c:forEach> --%>
 								</div>
 							</div>
-							<span class="text-muted text-decoration-line-through">
-								$ ${vo.price }</span> $ ${vo.offPrice }
+							<span > ${vo.startdate }</span> ~ ${vo.enddate }
 						</div>
 					</div>
 					<!-- Product actions-->
 					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
+							
 						</div>
 					</div>
 				</div>

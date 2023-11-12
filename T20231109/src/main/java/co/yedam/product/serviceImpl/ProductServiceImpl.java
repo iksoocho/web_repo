@@ -27,4 +27,10 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.select(prodCode);
 	}
 
+	@Override
+	public List<ProductVO> dayList(String bdate) {
+		// TODO Auto-generated method stub
+		return mapper.dayList(bdate);
+	}
+
 }

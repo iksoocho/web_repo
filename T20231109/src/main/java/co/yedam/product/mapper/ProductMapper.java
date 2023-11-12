@@ -10,4 +10,6 @@ public interface ProductMapper {
 	public List<ProductVO> list();
 	public ProductVO select(String prodCode);
 	
+	public List<ProductVO> dayList(String bdate);
+	
 }

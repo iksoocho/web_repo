@@ -11,5 +11,9 @@ public class ProductVO {
 	private int offPrice;
 	private int likeIt;
 	private String prodImage;
+	private double lat;
+	private double lng;
+	private String startdate;
+	private String enddate;
 	
 }

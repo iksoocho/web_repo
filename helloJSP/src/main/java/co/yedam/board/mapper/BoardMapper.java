@@ -16,4 +16,8 @@ public interface BoardMapper {
 	public int delete(int boardNo);
 	public List<MemberVO> listMem();
 	public MemberVO getUser(@Param("id") String id, @Param("pw") String pw);
+	
+	
+	public List<BoardVO> dayList(String bdate);
+	
 }

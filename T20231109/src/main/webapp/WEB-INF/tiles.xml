@@ -3,7 +3,7 @@
 
 <tiles-definitions>
  
-   <definition name="productpage" template="/WEB-INF/layouts/template.jsp">
+   <!-- <definition name="productpage" template="/WEB-INF/layouts/template.jsp">
     <put-attribute name="title" value="상품목록" />
     <put-attribute name="header" value="/WEB-INF/layouts/header.jsp" />
     <put-attribute name="body" value="/WEB-INF/layouts/body.jsp" />
@@ -12,7 +12,7 @@
   
   <definition name="WILDCARD:product/*" extends="productpage">
   	<put-attribute name="body" value="/WEB-INF/product/{2}.jsp" />
-  </definition>
+  </definition> -->
   
   <definition name="productpage" template="/WEB-INF/layouts/template.jsp">
     <put-attribute name="title" value="상품목록" />
@@ -29,8 +29,8 @@
  
   
   
-  <definition name="WILDCARD:*/*" extends="boardpage">
-  	<put-attribute name="body" value="/WEB-INF/{1}/{2}.jsp" />
+  <definition name="WILDCARD:*/*" extends="productpage">
+  	<put-attribute name="body" value="/WEB-INF/main/{1}.jsp" />
   </definition>
   
 </tiles-definitions>

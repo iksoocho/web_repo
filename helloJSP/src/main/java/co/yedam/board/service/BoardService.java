@@ -10,6 +10,9 @@ public interface BoardService {
 	public boolean editBoard(BoardVO vo);
 	public boolean removeBoard(int boardNo);
 	
+	public List<BoardVO> dayList(String bdate);
+	
+	
 	//로그인 처리
 	public MemberVO loginCheck(String id, String pw);
 	public List<MemberVO> memberList();

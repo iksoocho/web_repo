@@ -60,5 +60,11 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return mapper.listMem();
 	}
+
+	@Override
+	public List<BoardVO> dayList(String bdate) {
+		// TODO Auto-generated method stub
+		return mapper.dayList(bdate);
+	}
 	
 }

@@ -25,6 +25,10 @@ public class ProductInfoContol implements Command {
 		
 		req.setAttribute("pcode", vo);
 		
+		
+		
+		
+		
 		try {
 			req.getRequestDispatcher("product/productInfo.tiles").forward(req, resp);
 		} catch (Exception e) {

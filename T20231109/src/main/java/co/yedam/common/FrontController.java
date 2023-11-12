@@ -20,8 +20,11 @@ public class FrontController extends HttpServlet {   //??.do 로 끝나면 항�
 
 	@Override
 	public void init() throws ServletException {
+		System.out.println("원래들어가야될 컨트롤러");
 		map.put("/productList.do", new ProductListControl());
 		map.put("/productInfo.do", new ProductInfoContol());
+		map.put("/main.do", new MainControl());
+	
 	
 	}
 

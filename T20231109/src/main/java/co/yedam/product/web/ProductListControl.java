@@ -16,12 +16,17 @@ public class ProductListControl implements Command {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
+		String brdDate = (String) req.getParameter("brdDate");
+		System.out.println("날짜값 "+ brdDate);
+		
 		ProductService svc = new ProductServiceImpl();
-		List<ProductVO> list = svc.productList();
+		List<ProductVO> list = svc.dayList(brdDate);
 		
 		req.setAttribute("list", list);
 		
-		RequestDispatcher rd = req.getRequestDispatcher("product/productList.tiles");//.forward(req, resp);
+		list.forEach(item->System.out.println(item));
+		
+		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/product/productList.jsp");//.forward(req, resp);
 		try {
 			rd.forward(req, resp);
 		} catch (Exception e) {
